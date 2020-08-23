@@ -318,16 +318,39 @@ plugins: []
 ## Configure grafana datasources
 ## ref: http://docs.grafana.org/administration/provisioning/#datasources
 ##
-datasources: {}
-#  datasources.yaml:
-#    apiVersion: 1
-#    datasources:
-#    - name: Prometheus
-#      type: prometheus
-#      url: http://prometheus-prometheus-server
-#      access: proxy
-#      isDefault: true
-
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.prometheus.svc.cluster.local:80
+        access: proxy
+        isDefault: true
+        version: 1
+        editable: true
+      - name: Influxdb
+        type: influxdb
+        user: ""
+        password: ""
+        url: http://prometheus-server.prometheus.svc.cluster.local:80
+        access: proxy
+        isDefault: true
+        database: telegraf
+        basicAuth: false
+        version: 1
+        editable: true
+      - name: Loki
+        type: loki
+        user: ""
+        password: ""
+        database: ""
+        url: http://janus-loki.default:3100
+        access: proxy
+        isDefault: true
+        basicAuth: false
+        version: 1
+        editable: true
 ## Configure notifiers
 ## ref: http://docs.grafana.org/administration/provisioning/#alert-notification-channels
 ##
